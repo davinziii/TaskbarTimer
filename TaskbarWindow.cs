@@ -65,6 +65,8 @@ public sealed class TaskbarWindow : Window
         return b;
     }
 
+    protected override void OnSourceInitialized(EventArgs e) { base.OnSourceInitialized(e); WinStyle.HideFromAltTab(this, true); }
+
     public void SetText(string s, bool paused, bool light, bool red, bool running, bool ringing)
     {
         var baseBrush = light ? Brushes.Black : Brushes.White;

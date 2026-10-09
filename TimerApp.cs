@@ -102,7 +102,7 @@ public sealed class TimerApp : Application
             host.TaskbarWindowRecreationRequired += (_, _) => Dispatcher.InvokeAsync(async () => await AttachWidgetAsync());
             _host = host;
             await host.AttachWhenLayoutReadyAsync();
-            w.Show(); Refresh();
+            w.Show(); WinStyle.HideFromAltTab(w, true); Refresh();
         }
         catch (Exception ex)
         {

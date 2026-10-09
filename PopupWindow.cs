@@ -54,6 +54,7 @@ public sealed class PopupWindow : Window
     protected override void OnSourceInitialized(EventArgs e)
     {
         base.OnSourceInitialized(e);
+        WinStyle.HideFromAltTab(this, false);
         int round = 2; DwmSetWindowAttribute(new WindowInteropHelper(this).Handle, 33, ref round, 4); // Win11 rounded corners
     }
 
