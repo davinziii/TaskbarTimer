@@ -16,8 +16,9 @@ public sealed class Tray : IDisposable
         menu.Items.Add(new WF.ToolStripMenuItem("Taskbar Timer") { Enabled = false });
         menu.Items.Add(new WF.ToolStripSeparator());
         menu.Items.Add("▶ Start", null, (_, _) => app.Engine.Start());
-        menu.Items.Add("⏸ Pause", null, (_, _) => app.Engine.Pause());
-        menu.Items.Add("↻ Reset", null, (_, _) => app.Engine.Reset());
+        menu.Items.Add("■ Stop (pause / silence alarm)", null, (_, _) => app.StopPress());
+        menu.Items.Add("↻ Restart", null, (_, _) => app.Engine.Restart());
+        menu.Items.Add("+1 minute", null, (_, _) => app.Engine.Add(TimeSpan.FromMinutes(1)));
         menu.Items.Add(new WF.ToolStripSeparator());
         foreach (var m in new[] { 5, 10, 25, 30, 60 })
             menu.Items.Add(m == 60 ? "1 hour" : $"{m} minutes", null, (_, _) => app.StartPreset(m));

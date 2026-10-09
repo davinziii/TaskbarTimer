@@ -53,6 +53,7 @@ public sealed class TimerEngine
     }
     public void Pause() { if (State != TimerState.Running) return; _frozen = Value; State = TimerState.Paused; Changed?.Invoke(); }
     public void Reset() { State = TimerState.Idle; _frozen = TimeSpan.Zero; Changed?.Invoke(); }
+    public void Restart() { State = TimerState.Idle; _frozen = TimeSpan.Zero; Start(); }
     public void SetMode(TimerMode m) { Mode = m; State = TimerState.Idle; Changed?.Invoke(); }
     public void SetDuration(TimeSpan d) { Duration = Max(d, TimeSpan.FromSeconds(1)); Mode = TimerMode.Countdown; State = TimerState.Idle; Changed?.Invoke(); }
     public void Add(TimeSpan d)
@@ -62,6 +63,7 @@ public sealed class TimerEngine
         {
             case TimerState.Running: _end += d; Tick(); break;
             case TimerState.Paused: _frozen = Max(_frozen + d, TimeSpan.Zero); break;
+            case TimerState.Done: if (d > TimeSpan.Zero) { _end = DateTime.UtcNow + d; State = TimerState.Running; } break; // snooze
             default: Duration = Max(Duration + d, TimeSpan.FromSeconds(1)); State = TimerState.Idle; break;
         }
         Changed?.Invoke();
@@ -76,7 +78,8 @@ public sealed class TimerEngine
     {
         Mode = s.Mode; State = s.State; Duration = TimeSpan.FromSeconds(Math.Max(1, s.DurationSec));
         _end = s.EndUtc; _start = s.StartUtc; _frozen = TimeSpan.FromSeconds(s.FrozenSec);
-        Tick(); // finished while the app was closed -> notify once
+        if (State == TimerState.Running && Mode == TimerMode.Countdown && _end < DateTime.UtcNow.AddMinutes(-5)) { State = TimerState.Idle; return; }
+        Tick(); // finished while the app was closed (<5 min ago) -> ring
     }
 }
 

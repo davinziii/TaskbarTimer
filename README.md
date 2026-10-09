@@ -11,7 +11,7 @@ Push to GitHub -> Actions -> artifact `TaskbarTimerSetup`. Or locally (.NET 10 S
 
 ## Known limitations
 - Windows 11 only. Not an official taskbar API: a community technique that can break with Windows updates.
-- Not yet compiled or run by the author. Expect to fix small compile/API mismatches against Deskband11Lib.Wpf.Sample.
+- Alarm, popup redesign and placement option added in 1.1.0 are untested by the author.
 - Not implemented: launch-minimized, show-tray toggle, auto-start timer, default-mode setting, custom preset editor.
 - Popup positions on the primary monitor work area only.
 

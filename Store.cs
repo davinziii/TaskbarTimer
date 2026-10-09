@@ -13,6 +13,9 @@ public sealed class Settings
     public string Theme { get; set; } = "System";
     public int DefaultMinutes { get; set; } = 25;
     public int Monitor { get; set; } = 0;
+    public string Placement { get; set; } = "BeforeNotificationArea";
+    public string Ringtone { get; set; } = "Classic Alarm";
+    public string CustomSoundPath { get; set; } = "";
     public int[] Presets { get; set; } = { 1, 5, 10, 15, 25, 30, 45, 60 };
 }
 

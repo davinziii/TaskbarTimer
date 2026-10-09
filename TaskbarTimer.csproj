@@ -9,7 +9,7 @@
     <StartupObject>TaskbarTimer.Program</StartupObject>
     <AssemblyName>TaskbarTimer</AssemblyName>
     <ApplicationIcon>icon.ico</ApplicationIcon>
-    <Version>1.0.0</Version>
+    <Version>1.1.0</Version>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Deskband11Lib.Wpf" Version="1.4.2" />
