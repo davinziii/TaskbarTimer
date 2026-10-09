@@ -78,7 +78,7 @@ public sealed class TimerApp : Application
     void Refresh()
     {
         var t = Engine.Value; var text = Fmt.Clock(t, Engine.Mode); var red = RedNow;
-        _widget?.SetText(text, Engine.State == TimerState.Paused, TaskbarLight, red);
+        _widget?.SetText(text, Engine.State == TimerState.Paused, TaskbarLight, red, Engine.State == TimerState.Running, Ringing);
         _tray?.Update(text, Engine.State, t);
         _popup?.Refresh(red);
     }
@@ -90,7 +90,7 @@ public sealed class TimerApp : Application
             if (_host is IDisposable d) d.Dispose();
             _host = null; _widget?.Close();
             var w = new TaskbarWindow(this); _widget = w;
-            var opts = new TaskbarContentHostOptions { PreferredWidth = 104, PreferredHeight = 48, PreferredMonitorIdentity = Cfg.Monitor };
+            var opts = new TaskbarContentHostOptions { PreferredWidth = TaskbarWindow.WidthDip, PreferredHeight = 48, PreferredMonitorIdentity = Cfg.Monitor };
             try // set Placement by name so this compiles regardless of the enum's type name
             {
                 var pr = opts.GetType().GetProperty("Placement");
