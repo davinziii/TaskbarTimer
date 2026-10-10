@@ -82,11 +82,12 @@ public sealed class PopupWindow : Window
 
         _play = Mk("\uE768", _app.Play, P.Accent, P.AccentFg, 1, "Play / resume");
         _stop = Mk("\uE71A", _app.StopPress, P.Surface, P.Fg, 1, "Stop: pause the timer, or silence the alarm");
-        var controls = new UniformGrid { Columns = 4 };
+        var controls = new UniformGrid { Columns = 5 };
         controls.Children.Add(_play); controls.Children.Add(_stop);
         controls.Children.Add(Mk("\uE72C", () => e.Restart(), P.Surface, P.Fg, 1, "Restart from the beginning"));
-        controls.Children.Add(Mk("+1 min", () => e.Add(TimeSpan.FromMinutes(1)), P.Surface, P.Fg, 0, "Add one minute"));
-        foreach (Button b in controls.Children) if (b.Content as string == "+1 min") b.Height = 46;
+        controls.Children.Add(Mk("\u22121m", () => e.Add(TimeSpan.FromMinutes(-1)), P.Surface, P.Fg, 0, "Subtract one minute"));
+        controls.Children.Add(Mk("+1m", () => e.Add(TimeSpan.FromMinutes(1)), P.Surface, P.Fg, 0, "Add one minute"));
+        foreach (Button b in controls.Children) b.Height = 46;
         root.Children.Add(controls);
 
         var presets = new WrapPanel { HorizontalAlignment = HorizontalAlignment.Center, Margin = new Thickness(0, 12, 0, 6) };

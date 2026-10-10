@@ -19,6 +19,7 @@ public sealed class Tray : IDisposable
         menu.Items.Add("■ Stop (pause / silence alarm)", null, (_, _) => app.StopPress());
         menu.Items.Add("↻ Restart", null, (_, _) => app.Engine.Restart());
         menu.Items.Add("+1 minute", null, (_, _) => app.Engine.Add(TimeSpan.FromMinutes(1)));
+        menu.Items.Add("\u22121 minute", null, (_, _) => app.Engine.Add(TimeSpan.FromMinutes(-1)));
         menu.Items.Add(new WF.ToolStripSeparator());
         foreach (var m in new[] { 5, 10, 25, 30, 60 })
             menu.Items.Add(m == 60 ? "1 hour" : $"{m} minutes", null, (_, _) => app.StartPreset(m));

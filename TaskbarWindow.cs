@@ -6,11 +6,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 namespace TaskbarTimer;
 
-/// The element hosted inside the Windows 11 taskbar (via Deskband11Lib):  [ 24:37 ] [▶] [■] [↻] [+1m]
+/// The element hosted inside the Windows 11 taskbar (via Deskband11Lib):  [ 24:37 ] [▶] [■] [↻] [−1m] [+1m]
 /// Height matches the 48 DIP taskbar so everything centers vertically.
 public sealed class TaskbarWindow : Window
 {
-    public const double WidthDip = 206;
+    public const double WidthDip = 236;
     public readonly Grid Root = new();
     readonly TextBlock _t = new();
     readonly List<TextBlock> _glyphs = new();
@@ -39,6 +39,7 @@ public sealed class TaskbarWindow : Window
         row.Children.Add(_play);
         row.Children.Add(Btn("\uE71A", app.StopPress, "Stop (pause, or silence the alarm)", true, out _stopGlyph));
         row.Children.Add(Btn("\uE72C", () => app.Engine.Restart(), "Restart", true, out _));
+        row.Children.Add(Btn("\u22121m", () => app.Engine.Add(TimeSpan.FromMinutes(-1)), "Subtract one minute", false, out _));
         row.Children.Add(Btn("+1m", () => app.Engine.Add(TimeSpan.FromMinutes(1)), "Add one minute", false, out _));
 
         Root.Background = Brushes.Transparent; Root.Children.Add(row);
